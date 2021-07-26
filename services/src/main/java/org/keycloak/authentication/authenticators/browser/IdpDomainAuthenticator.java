@@ -34,6 +34,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 
+// TODO: largely a copy of IdpAttributeAuthenticator ... maybe combine these
 public class IdpDomainAuthenticator implements Authenticator {
 
     private static final Logger LOG = Logger.getLogger(IdpDomainAuthenticator.class);
@@ -42,18 +43,6 @@ public class IdpDomainAuthenticator implements Authenticator {
 
     @Override
     public void authenticate(AuthenticationFlowContext context) {
-        // What if a user changes their email domain?
-        // Or email is not mapped and registers with a different domain?
-        // Maybe integrate with user profile email validator?
-
-        // Ours is also attribute based – could be group based (although you could argue attribute
-        // is more general as a group can be used to set an attribute)
-
-        // Could we generalize with conditional?
-        // If any of...
-        // - attribute = X, use idp(x) -> alias?
-        // - email domain = Y, use idp(y) -> alias?
-
         String domain = emailDomainFor(context);
         if (domain == null) {
             context.attempted();

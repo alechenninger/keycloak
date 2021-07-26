@@ -54,11 +54,6 @@ public class IdpAttributeAuthenticator implements Authenticator {
         // Ours is also attribute based – could be group based (although you could argue attribute
         // is more general as a group can be used to set an attribute)
 
-        // Could we generalize with conditional?
-        // If any of...
-        // - attribute = X, use idp(x) -> alias?
-        // - email domain = Y, use idp(y) -> alias?
-
         // TODO: if user already authenticated somehow (e.g. through another idp link), present
         //  error then redirect on action?
         //  maybe make this configurable, then configure it that way for post idp flow?
@@ -66,8 +61,6 @@ public class IdpAttributeAuthenticator implements Authenticator {
 
         String alias = idpAliasFor(context.getUser());
         if (alias == null) {
-            // or attempted?
-            // how do we require if attribute present – conditional
             context.attempted();
             return;
         }
@@ -126,6 +119,7 @@ public class IdpAttributeAuthenticator implements Authenticator {
     public void close() {
     }
 
+    // TODO: copied from IdentityProviderAuthenticator ... probably want to DRY somewhere
     private void redirect(AuthenticationFlowContext context, IdentityProviderModel idp) {
         String alias = idp.getAlias();
         String accessCode = new ClientSessionCode<>(context.getSession(), context.getRealm(), context.getAuthenticationSession()).getOrGenerateCode();
