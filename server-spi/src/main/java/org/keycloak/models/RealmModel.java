@@ -538,10 +538,6 @@ public interface RealmModel extends RoleContainerModel {
      */
     Stream<IdentityProviderModel> getIdentityProvidersStream();
 
-    default Stream<IdentityProviderModel> getIdentityProviderByDomain(DomainName domain) {
-        return getIdentityProvidersStream().filter(idp -> idp.getDomain().equals(domain));
-    }
-
     IdentityProviderModel getIdentityProviderByAlias(String alias);
     void addIdentityProvider(IdentityProviderModel identityProvider);
     void removeIdentityProviderByAlias(String alias);
