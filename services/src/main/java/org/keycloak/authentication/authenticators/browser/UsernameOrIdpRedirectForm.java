@@ -57,6 +57,9 @@ public final class UsernameOrIdpRedirectForm extends UsernamePasswordForm {
             context.cancelLogin();
             return;
         }
+        // TODO: this is super rough; would likely want to change more validateForm code given it
+        //   makes some assumptions about what we do with invalid users that might not apply here.
+        // TODO: have to account for disabled user - probably shouldn't redirect to idp?
         if (!validateForm(context, formData)) {
             String domain = emailDomainFor(context);
             if (domain == null) {
